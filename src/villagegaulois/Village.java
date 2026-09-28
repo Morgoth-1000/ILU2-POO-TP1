@@ -60,27 +60,63 @@ public class Village {
 	
 	private class Marche{
 		private Etal[] etals;
-		private int nbEtalsMax;
-		private int nbEtals =0;
+		private int nbEtals;
 		
-		private Marche(int nbEtalsMax) {
-			this.nbEtalsMax = nbEtalsMax;
-			etals = new Etal[nbEtalsMax];
+		private Marche(int nbEtals) {
+			this.nbEtals = nbEtals;
+			etals = new Etal[nbEtals];
 		}
 		
 		private void utiliserEtal(int indiceEtal, Gaulois vendeur,String produit, int nbProduit) {
 			etals[indiceEtal].occuperEtal(vendeur, produit, nbProduit);
 		}
+		
 		private int trouverEtalLibre() {
-			int EtalLibre=-1;
-			for(int i=0; i<etals.length; i++) {
+			int etalLibre=-1;
+			for(int i=0; i<nbEtals; i++) {
 				if(!etals[i].isEtalOccupe()) {
-					EtalLibre=i;
+					etalLibre=i;
 				}
 			}
-			return EtalLibre;
+			return etalLibre;
 		}
 		
+		private Etal[] trouverEtal(String produit) {
+			int nbEtalProduit = 0;
+			for(int i=0;i<nbEtals;i++) {
+				if (etals[i].contientProduit(produit)) {
+					nbEtalProduit ++;
+				}
+			}
+			int indexRemplissage=0;
+			Etal[] etalProduit = new Etal[nbEtalProduit];
+			
+			for(int j=0;j<nbEtals;j++) {
+				if (etals[j].contientProduit(produit)) {
+					etalProduit[indexRemplissage]=etals[j];
+					indexRemplissage ++;
+				}
+			}
+			return etalProduit;
+		}
 		
+		private Etal trouverVendeur(Gaulois gaulois) {
+			for(int i=0;i<nbEtals;i++) {
+					if (etals[i].getVendeur()==gaulois) {
+						return etals[i];
+					}			
+			}
+			return null;
+		}
+		
+		private String afficherMarche() {
+			StringBuilder affichage = new StringBuilder();
+			int nbEtalsVides =0;
+			for (int i=0; i < nbEtals ;i++) {
+				if(etals[i].isEtalOccupe()) {
+					
+				}
+			}
+		}
 	}
 }
